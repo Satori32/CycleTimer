@@ -11,6 +11,14 @@ public:
 		return (V % M)==0;
 	}
 
+	bool IsTail() {
+		return (V % M) == (M-1);//take care to -1 method.
+	}
+
+	INT Value() {
+		return V % M;
+	}
+
 	INT Count() { return V; }
 	INT MOD() { return M; }
 
@@ -38,13 +46,12 @@ protected:
 int main() {
 	CycleTimer<int> CT(16);
 
-	CT.Update();
+	//CT.Update();
 
-	while(!CT.IsZero()){
-	
+	do{
 		std::cout << CT.Count() << std::endl;
 		CT.Update();
-	}
+	} while (!CT.IsTail());
 
 	return 0;
 }
