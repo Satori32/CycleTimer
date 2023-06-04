@@ -89,6 +89,7 @@ public:
 
 
 	bool Start() {
+		if (IsRunning()) { return false; }
 		auto Fun = [this]() { while (IsRunning_) { this->Update(); std::this_thread::sleep_for(Wait); }};
 		IsRunning_ = true;
 		Fu = std::async(std::launch::async, Fun);
@@ -104,13 +105,19 @@ public:
 		Stop();
 	}
 
+	bool SetRunning(bool F) {
+		IsRunning_ = F;
+		return true;
+	}
+
 	bool IsRunning() {
 		return IsRunning_;
 	}
+/** /
 protected:
 	template<class T>
 	T MakeCopy(T In) { return In; }
-
+	/**/
 protected:
 	bool IsRunning_ = false;
 	std::chrono::nanoseconds Wait = { 0 };
